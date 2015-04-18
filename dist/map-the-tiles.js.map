@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "sources": [
+    "../../../../usr/local/lib/node_modules/browserify/node_modules/browser-pack/_prelude.js",
+    "/home/gaganb/projects/map-the-tiles/map-the-tiles.js"
+  ],
+  "names": [],
+  "mappings": "AAAA;ACAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA",
+  "file": "generated.js",
+  "sourceRoot": "",
+  "sourcesContent": [
+    "(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==\"function\"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error(\"Cannot find module '\"+o+\"'\");throw f.code=\"MODULE_NOT_FOUND\",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require==\"function\"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})",
+    "var MapTheTiles = function (projExtent,tileSize) {\n  // default spherical mercator project extent\n  this.projExtent = projExtent || { \n    left: -20037508.342789244,\n    right: 20037508.342789244,\n    bottom: -20037508.342789244,\n    top: 20037508.342789244\n  };\n  this.size = tileSize || 256;\n  this.maxRes = Math.min(\n    Math.abs(this.projExtent.right - this.projExtent.left)/this.size,\n    Math.abs(this.projExtent.top - this.projExtent.bottom)/this.size);\n}\nMapTheTiles.prototype.getTiles = function(extent,zoom) {\n  var res = this.maxRes/Math.pow(2,zoom),\n    //coordinated in pixel\n    lx = Math.floor((extent.left - this.projExtent.left)/res),\n    rx = Math.floor((extent.right - this.projExtent.left)/res),\n    by = Math.floor((this.projExtent.top - extent.bottom )/res),\n    ty = Math.floor((this.projExtent.top - extent.top )/res),\n    // tile numbers\n    lX = Math.floor(lx/this.size),\n    rX = Math.floor(rx/this.size),\n    bY = Math.floor(by/this.size),\n    tY = Math.floor(ty/this.size),\n    //top left tile position of top-left tile with respect to window/div \n    top = topStart = (tY * this.size) - ty,\n    left = (lX * this.size) - lx,\n    tiles = [];\n  for (var i=lX; i<=rX; i++) {\n    top = topStart;\n    for(var j=tY; j<=bY; j++) {\n      tiles.push({\n        X:i,\n        Y:j,\n        Z:zoom,\n        top: top,\n        left: left\n      });\n      top += this.size;\n    }\n    left += this.size;\n  }\n  return tiles;\n};\n\nmodule.exports = MapTheTiles;\n"
+  ]
+}

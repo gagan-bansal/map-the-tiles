@@ -1,0 +1,30 @@
+{
+  "name": "map-the-tiles",
+  "version": "0.0.0",
+  "description": "Calculate the map tiles for given map extent(projected) and zoom level.",
+  "main": "map-the-tiles.js",
+  "scripts": {
+    "test": "mocha test/test.js",
+    "build-debug": "browserify map-the-tiles.js --debug --standalone MapTheTiles | exorcist dist/map-the-tiles.js.map > dist/map-the-tiles.js",
+    "build-min": "browserify map-the-tiles.js --standalone MapTheTiles | uglifyjs -c -m > dist/map-the-tiles.min.js",
+    "build": "npm run build-debug && npm run build-min"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gagan-bansal/map-the-tiles"
+  },
+  "keywords": ["maps", "map tiles", "spherical mercator", "web mercator", "google projection"],
+  "author": "Gagan Bansal <gaganbansal123@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gagan-bansal/map-the-tiles/issues"
+  },
+  "homepage": "https://github.com/gagan-bansal/map-the-tiles",
+  "devDependencies": {
+    "browserify": "^8.1.1",
+    "chai": "^1.10.0",
+    "exorcist": "^0.1.6",
+    "mocha": "^2.1.0",
+    "uglify-js": "^2.4.16"
+  }
+}
