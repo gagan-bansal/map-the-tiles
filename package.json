@@ -1,7 +1,7 @@
 {
   "name": "map-the-tiles",
   "version": "1.0.0",
-  "description": "Calculate the map tiles for given map extent(projected) and zoom level.",
+  "description": "Calculate map tiles for given map center, zoom and rotation.",
   "main": "map-the-tiles.js",
   "scripts": {
     "test": "mocha test/test.js",
@@ -16,6 +16,9 @@
   "keywords": [
     "maps",
     "map tiles",
+    "tiles",
+    "rotation",
+    "rotated map",
     "spherical mercator",
     "web mercator",
     "google projection"
