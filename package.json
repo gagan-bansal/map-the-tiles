@@ -1,6 +1,6 @@
 {
   "name": "map-the-tiles",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Calculate the map tiles for given map extent(projected) and zoom level.",
   "main": "map-the-tiles.js",
   "scripts": {
