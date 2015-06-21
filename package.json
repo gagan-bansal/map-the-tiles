@@ -13,7 +13,13 @@
     "type": "git",
     "url": "https://github.com/gagan-bansal/map-the-tiles"
   },
-  "keywords": ["maps", "map tiles", "spherical mercator", "web mercator", "google projection"],
+  "keywords": [
+    "maps",
+    "map tiles",
+    "spherical mercator",
+    "web mercator",
+    "google projection"
+  ],
   "author": "Gagan Bansal <gaganbansal123@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -26,5 +32,9 @@
     "exorcist": "^0.1.6",
     "mocha": "^2.1.0",
     "uglify-js": "^2.4.16"
+  },
+  "dependencies": {
+    "rectangles-intersect": "0.0.0",
+    "transformatrix": "^1.1.1"
   }
 }

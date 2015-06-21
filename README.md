@@ -1,5 +1,5 @@
 # map-the-tiles
-Calculate map tiles for given map extent and zoom level. The instance can be initiated with projection's map extent and the tile size.
+Calculate map tiles for given map center, zoom and rotation. The instance need to be initiated with maps viewport size, projection's map extent and the tile size.
 ## installation
 
 ```
@@ -9,10 +9,17 @@ npm install map-the-tiles
 ## API
 ```javascript
 var MapTheTiles = require('map-the-tiles'),
-  tiler = new MapTheTiles(projectionExtent, tileSize);  
+  tiler = new MapTheTiles(viewportSize,projectionExtent,tileSize);  
 ``` 
-Parameteres are as follows:
-
+Parameters are as follows:
+#### viewportSize
+maps viewport (map's div) size as an object of width and height in pixel 
+```
+{
+  width: 600,
+  height: 400
+}
+```
 #### projectionExtent
 projected full map extent in projected coordinate system. Default is spherical mercator map extent i.e.
 
@@ -28,17 +35,17 @@ projected full map extent in projected coordinate system. Default is spherical m
 #### tileSize
 Size of the map tile, default is 256.
 
-### getTiles(extent, zoom)
-extent: map extent of window (map's div) in spherical mercator projeection (meters)
+### getTiles(center, zoom [,rotation])
+**center**: map center in projected map coordinates 
 ```
 {
-  left: coordinate in meter,
-  right: coordinate in meter,
-  bottom: coordinate in meter,
-  top: coordinate in meter
+  x: float x coordinate,
+  y: float y coordinate,
 }
 ```
-zoom: zoom level as integer
+**zoom**: zoom level as integer
+
+**rotation**: map rotation in degree, clockwise positive as per CSS's transform convention 
 
 output: array of tiles, where tile object is 
 ```
@@ -46,33 +53,56 @@ output: array of tiles, where tile object is
   X: tile number in x direction
   Y: tile number in y direction 
   Z: tile number for zoom
-  top: top of tile image position in window as pixel
-  left: left of tile image position in window as pixel
+  top: CSS top of tile image position with respect to viwport's top
+  left: CSS left of tile image position with respect to viwport's left
 }
 ```
 ### example
-````javascript
-var MapTheTiles = require('map-the-tiles'),
-  tiler = new MapTheTiles(projectionExtent, tileSize),
-  mapExtent = {
-    left:-7929831.7499857,
-    bottom:5227055.1160079,
-    right:-7910263.8707475,
-    top:5236839.0556271
-  },
-  zoom = 12;
-tiles = tiles.getTiles(mapExtent,zoom);
+```javascript
+var MapTheTiles = require('map-the-tiles');
+// create spherical mercator tiler
+var tiler = new MapTheTiles({width:600,height:400});
+var tiles = tiler.getTiles(
+  {x: -7920047.8103666, y: 5231947.0858175},
+  12   
+);
 // tiles are
 /*
-[ { X: 1237, Y: 1512, Z: 12, top: -192, left: -129 },
-  { X: 1237, Y: 1513, Z: 12, top: 64, left: -129 },
-  { X: 1238, Y: 1512, Z: 12, top: -192, left: 127 },
-  { X: 1238, Y: 1513, Z: 12, top: 64, left: 127 },
-  { X: 1239, Y: 1512, Z: 12, top: -192, left: 383 },
-  { X: 1239, Y: 1513, Z: 12, top: 64, left: 383 } ]
+[
+  {"x":1237,"y":1512,"z":12,"top":-120,"left":-85},
+  {"x":1237,"y":1513,"z":12,"top":136,"left":-85},
+  {"x":1237,"y":1514,"z":12,"top":392,"left":-85},
+  {"x":1238,"y":1512,"z":12,"top":-120,"left":171},
+  {"x":1238,"y":1513,"z":12,"top":136,"left":171},
+  {"x":1238,"y":1514,"z":12,"top":392,"left":171},
+  {"x":1239,"y":1512,"z":12,"top":-120,"left":427},
+  {"x":1239,"y":1513,"z":12,"top":136,"left":427},
+  {"x":1239,"y":1514,"z":12,"top":392,"left":427}
+]
+*/
+// if we want to rotate the map 
+tiles = tiler.getTiles(
+  {x: -7920047.8103666, y: 5231947.0858175},
+  12,
+  30 //rotation in degree
+);
+
+// and rotated tiles are
+/*
+[
+  {"x":1237,"y":1512,"z":12,"top":-120,"left":-85},
+  {"x":1237,"y":1513,"z":12,"top":136,"left":-85},
+  {"x":1237,"y":1514,"z":12,"top":392,"left":-85},
+  {"x":1238,"y":1512,"z":12,"top":-120,"left":171},
+  {"x":1238,"y":1513,"z":12,"top":136,"left":171},
+  {"x":1238,"y":1514,"z":12,"top":392,"left":171},
+  {"x":1239,"y":1511,"z":12,"top":-376,"left":427},
+  {"x":1239,"y":1512,"z":12,"top":-120,"left":427},
+  {"x":1239,"y":1513,"z":12,"top":136,"left":427}
+]
 */
 ```
-  
+ 
 ## developing
 Once you run
  
