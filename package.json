@@ -1,6 +1,6 @@
 {
   "name": "map-the-tiles",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Calculate map tiles for given map center, zoom and rotation.",
   "main": "map-the-tiles.js",
   "scripts": {
