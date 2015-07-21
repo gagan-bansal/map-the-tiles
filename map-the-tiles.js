@@ -18,6 +18,9 @@ var MapTheTiles = function (viewportSize,projExtent,tileSize) {
 MapTheTiles.prototype.getTiles = function(ctr, z, rot) {
   // all calculation are in pixel coordinates i.e. project extent devied by 
   // resolution at that zoom level
+  if(!Array.isArray(ctr)) {
+    ctr = [ctr.x,ctr.y];
+  }
   var vpExtPx = this._getExtentPx(ctr,z), //view port extent in pixel
     ctrPx = this._pointToPx(ctr,z), //center in pixel
     tr, // instance of TransformMatrix used for rotated view calculation
@@ -30,9 +33,9 @@ MapTheTiles.prototype.getTiles = function(ctr, z, rot) {
   if(rot && rot !=0) {
     rot = -rot; //to follow the HTML (transform) convention clockwise positive
     tr = new TransformMatrix();
-    tr.translate(ctrPx.x, ctrPx.y);
+    tr.translate(ctrPx[0], ctrPx[1]);
     tr.rotate(Math.PI/180 * rot); //as rot is in deg
-    tr.translate(-ctrPx.x, -ctrPx.y);
+    tr.translate(-ctrPx[0], -ctrPx[1]);
     rotViewportPx = [
       tr.transformPoint(vpExtPx.left,vpExtPx.bottom),
       tr.transformPoint(vpExtPx.right,vpExtPx.bottom),
@@ -70,18 +73,18 @@ MapTheTiles.prototype.getTiles = function(ctr, z, rot) {
 MapTheTiles.prototype._getExtentPx = function(ctr,z) {
   var res = this.maxRes/Math.pow(2,z);
   return {
-    left: (ctr.x - this.projExtent.left)/res - this.vpSize.width/2,
-    right: (ctr.x - this.projExtent.left)/res + this.vpSize.width/2,
-    bottom: (this.projExtent.top - ctr.y)/res + this.vpSize.height/2,
-    top: (this.projExtent.top - ctr.y)/res - this.vpSize.height/2
+    left: (ctr[0] - this.projExtent.left)/res - this.vpSize.width/2,
+    right: (ctr[0] - this.projExtent.left)/res + this.vpSize.width/2,
+    bottom: (this.projExtent.top - ctr[1])/res + this.vpSize.height/2,
+    top: (this.projExtent.top - ctr[1])/res - this.vpSize.height/2
   };
 };
 MapTheTiles.prototype._pointToPx = function(pt,z) {
   var res = this.maxRes/Math.pow(2,z);
-  return {
-    x: (pt.x - this.projExtent.left)/res,
-    y: (this.projExtent.top - pt.y)/res
-  };
+  return [
+    (pt[0] - this.projExtent.left)/res,
+    (this.projExtent.top - pt[1])/res
+  ];
 };
 MapTheTiles.prototype._getTileBoundingRect = function(t) {
   var res, l, r, t, b;

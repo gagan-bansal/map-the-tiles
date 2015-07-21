@@ -36,13 +36,15 @@ projected full map extent in projected coordinate system. Default is spherical m
 Size of the map tile, default is 256.
 
 ### getTiles(center, zoom [,rotation])
-**center**: map center in projected map coordinates 
+**center**: map center in projected map coordinates, array of x and y coordinate 
 ```
-{
-  x: float x coordinate,
-  y: float y coordinate,
-}
+[
+  float x coordinate,
+  float y coordinate
+]
 ```
+center as object of x and y is also acceptable.
+
 **zoom**: zoom level as integer
 
 **rotation**: map rotation in degree, clockwise positive as per CSS's transform convention 
@@ -63,7 +65,7 @@ var MapTheTiles = require('map-the-tiles');
 // create spherical mercator tiler
 var tiler = new MapTheTiles({width:600,height:400});
 var tiles = tiler.getTiles(
-  {x: -7920047.8103666, y: 5231947.0858175},
+  [-7920047.8103666, 5231947.0858175],
   12   
 );
 // tiles are
@@ -82,12 +84,12 @@ var tiles = tiler.getTiles(
 */
 // if we want to rotate the map 
 tiles = tiler.getTiles(
-  {x: -7920047.8103666, y: 5231947.0858175},
+  [-7920047.8103666, 5231947.0858175],
   12,
   30 //rotation in degree
 );
 
-// and rotated tiles are
+// and tiles for rotated view are
 /*
 [
   {"x":1237,"y":1512,"z":12,"top":-120,"left":-85},

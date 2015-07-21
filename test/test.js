@@ -15,7 +15,7 @@ describe('Calculate set of tiles for given map extent', function() {
       {"x":1239,"y":1513,"z":12,"top":136,"left":427},
       {"x":1239,"y":1514,"z":12,"top":392,"left":427}
     ],
-    center = {x: -7920047.8103666, y: 5231947.0858175},
+    center = [-7920047.8103666, 5231947.0858175],
     zoom = 12;
     expect(webTiles.getTiles(center,zoom))
       .to.deep.include.members(expected);
@@ -32,7 +32,7 @@ describe('Calculate set of tiles for given map extent', function() {
       {"x":1239,"y":1512,"z":12,"top":-120,"left":427},
       {"x":1239,"y":1513,"z":12,"top":136,"left":427}
     ],
-    center = {x: -7920047.8103666, y: 5231947.0858175},
+    center = [-7920047.8103666, 5231947.0858175],
     zoom = 12,
     rotation = 30; //deg clock wise
     expect(webTiles.getTiles(center,zoom,rotation))
