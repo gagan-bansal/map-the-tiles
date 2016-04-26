@@ -109,7 +109,7 @@ tiles = tiler.getTiles(
 ## developing
 Once you run
  
-```npm isntall```
+```npm install```
 
 then for running test 
 
