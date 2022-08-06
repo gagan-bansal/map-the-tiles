@@ -105,7 +105,7 @@ tiles = tiler.getTiles(
 */
 ```
 
-[This blog](http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/) explains the usage of this module in detail while createing rotated map using OSM tiles. 
+[This blog](https://maps-on-blackboard.github.io/articles/osm-tiles-map-with-rotation/) explains the usage of this module in detail while createing rotated map using OSM tiles. 
 ## developing
 Once you run
  
